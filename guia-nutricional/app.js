@@ -273,8 +273,9 @@ function pintarPlan() {
   vacio.classList.add("oculto");
 
   const d = dietaRecomendada(estado.perfil);
+  const nAptas = RECETAS.filter((r) => esApta(r, estado.perfil)).length;
   $("#plan-descripcion").textContent =
-    `Semana generada para tu perfil (base ${DIETAS[d].nombre}). Pulsa un plato para ver ingredientes, preparación y consejos; el dado 🎲 de cada día lo re-sortea.`;
+    `Semana generada para tu perfil (base ${DIETAS[d].nombre}) a partir de un recetario de ${RECETAS.length} recetas (${nAptas} compatibles con tus restricciones). Pulsa un plato para ver ingredientes, preparación y consejos; el dado 🎲 de cada día lo re-sortea.`;
 
   grid.innerHTML = DIAS.map((dia) => {
     const comidas = MOMENTOS.filter((m) => estado.plan[dia][m.clave]).map((m) => {
