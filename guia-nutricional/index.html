@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Guía Nutricional — Planificador semanal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <h1>🍽️ Mi Guía Nutricional</h1>
+      <p class="sub">Planificador semanal basado en las dietas Mediterránea · DASH · Flexitariana · MIND</p>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab activa" data-tab="perfil">👤 Mi perfil</button>
+    <button class="tab" data-tab="plan">📅 Plan semanal</button>
+    <button class="tab" data-tab="compra">🛒 Lista de compra</button>
+    <button class="tab" data-tab="combos">✨ Combinaciones</button>
+    <button class="tab" data-tab="equipo">🍳 Equipamiento</button>
+    <button class="tab" data-tab="guia">📖 Guía</button>
+  </nav>
+
+  <main>
+    <!-- ============ PERFIL ============ -->
+    <section id="panel-perfil" class="panel visible">
+      <h2>Tus características</h2>
+      <p class="ayuda">El plan semanal se adapta a tu edad, objetivos, condiciones de salud y restricciones alimentarias.</p>
+
+      <form id="form-perfil" class="form-perfil">
+        <div class="campo">
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" min="14" max="110" value="30" />
+        </div>
+
+        <div class="campo">
+          <label for="personas">Personas en casa (para la compra)</label>
+          <input type="number" id="personas" min="1" max="10" value="1" />
+        </div>
+
+        <div class="campo campo-ancho">
+          <label>Objetivo principal</label>
+          <div class="chips" id="chips-objetivo">
+            <label class="chip"><input type="radio" name="objetivo" value="salud" checked /><span>Salud general</span></label>
+            <label class="chip"><input type="radio" name="objetivo" value="peso" /><span>Perder peso</span></label>
+            <label class="chip"><input type="radio" name="objetivo" value="corazon" /><span>Cuidar el corazón</span></label>
+            <label class="chip"><input type="radio" name="objetivo" value="cerebro" /><span>Salud cognitiva</span></label>
+          </div>
+        </div>
+
+        <div class="campo campo-ancho">
+          <label>Condiciones a vigilar <small>(puedes marcar varias)</small></label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="cond" value="presion" /><span>Hipertensión</span></label>
+            <label class="chip"><input type="checkbox" name="cond" value="diabetes" /><span>Diabetes / prediabetes</span></label>
+            <label class="chip"><input type="checkbox" name="cond" value="colesterol" /><span>Colesterol alto</span></label>
+            <label class="chip"><input type="checkbox" name="cond" value="intestino" /><span>Salud digestiva</span></label>
+          </div>
+        </div>
+
+        <div class="campo campo-ancho">
+          <label>Restricciones alimentarias</label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="restr" value="vegetariano" /><span>Vegetariano</span></label>
+            <label class="chip"><input type="checkbox" name="restr" value="pescetariano" /><span>Pescetariano (sin carne, sí pescado)</span></label>
+            <label class="chip"><input type="checkbox" name="restr" value="gluten" /><span>Sin gluten</span></label>
+            <label class="chip"><input type="checkbox" name="restr" value="lacteo" /><span>Sin lácteos</span></label>
+            <label class="chip"><input type="checkbox" name="restr" value="frutos_secos" /><span>Alergia a frutos secos</span></label>
+            <label class="chip"><input type="checkbox" name="restr" value="pescado" /><span>Sin pescado / marisco</span></label>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn primario">💾 Guardar perfil y generar mi plan</button>
+        </div>
+      </form>
+
+      <div id="resumen-dieta" class="resumen-dieta oculto"></div>
+    </section>
+
+    <!-- ============ PLAN SEMANAL ============ -->
+    <section id="panel-plan" class="panel">
+      <div class="fila-titulo">
+        <h2>Tu semana</h2>
+        <div class="botonera">
+          <button id="btn-regenerar" class="btn primario">🎲 Generar nueva semana</button>
+        </div>
+      </div>
+      <p class="ayuda" id="plan-descripcion"></p>
+      <div id="cumplimiento" class="cumplimiento"></div>
+      <div id="plan-grid" class="plan-grid"></div>
+      <p class="ayuda oculto" id="plan-vacio">Guarda primero tu perfil en la pestaña <strong>👤 Mi perfil</strong> para generar tu plan.</p>
+    </section>
+
+    <!-- ============ LISTA DE COMPRA ============ -->
+    <section id="panel-compra" class="panel">
+      <div class="fila-titulo">
+        <h2>Lista de la compra</h2>
+        <div class="botonera">
+          <button id="btn-copiar-lista" class="btn">📋 Copiar lista</button>
+        </div>
+      </div>
+      <p class="ayuda" id="compra-descripcion">Generada automáticamente a partir de tu plan semanal, agrupada por esferas de alimentos. Marca lo que ya tengas en casa.</p>
+      <div id="lista-compra" class="lista-compra"></div>
+    </section>
+
+    <!-- ============ COMBINACIONES ============ -->
+    <section id="panel-combos" class="panel">
+      <h2>Combinaciones ganadoras</h2>
+      <p class="ayuda">Parejas de alimentos que la ciencia demuestra que funcionan mejor juntas. Pulsa el botón y descubre una.</p>
+      <div class="combo-zona">
+        <button id="btn-combo" class="btn primario grande">✨ ¡Sorpréndeme!</button>
+        <div id="combo-carta" class="combo-carta oculto"></div>
+      </div>
+      <details class="ver-todas">
+        <summary>Ver todas las combinaciones</summary>
+        <div id="combos-lista" class="combos-lista"></div>
+      </details>
+    </section>
+
+    <!-- ============ EQUIPAMIENTO ============ -->
+    <section id="panel-equipo" class="panel">
+      <h2>Equipamiento mínimo, cocina máxima</h2>
+      <p class="ayuda">Los 12 imprescindibles con los que se cocina absolutamente todo el plan (y 4 opcionales que hacen la vida más fácil). Cada uno con sus recomendaciones de uso.</p>
+      <h3 class="subtitulo">Los imprescindibles</h3>
+      <div id="equipo-esencial" class="equipo-grid"></div>
+      <h3 class="subtitulo">Muy recomendables (no imprescindibles)</h3>
+      <div id="equipo-opcional" class="equipo-grid"></div>
+    </section>
+
+    <!-- ============ GUÍA ============ -->
+    <section id="panel-guia" class="panel">
+      <h2>Las reglas de oro de la semana</h2>
+      <p class="ayuda">El consenso de las 4 dietas más respaldadas por la ciencia, resumido en 9 reglas.</p>
+      <div id="reglas-lista" class="reglas-lista"></div>
+
+      <h3 class="subtitulo">El plato modelo</h3>
+      <div class="plato-modelo">
+        <div class="plato">
+          <div class="mitad">½ verduras<br /><small>y hoja verde</small></div>
+          <div class="cuarto a">¼ grano<br /><small>integral</small></div>
+          <div class="cuarto b">¼ proteína<br /><small>legumbre &gt; pescado &gt; ave</small></div>
+        </div>
+        <ul class="plato-notas">
+          <li>🫒 AOVE para cocinar y aliñar</li>
+          <li>🍎 Fruta entera de postre</li>
+          <li>💧 Agua como bebida</li>
+          <li>🌿 Especias y hierbas en lugar de sal</li>
+        </ul>
+      </div>
+
+      <h3 class="subtitulo">Las 4 dietas en una frase</h3>
+      <div class="dietas-resumen">
+        <div class="dieta-card" style="--c:#2e7d52"><strong>Mediterránea</strong><span>Verdura, AOVE, pescado y legumbre: la más respaldada por décadas de evidencia (PREDIMED). Corazón y longevidad.</span></div>
+        <div class="dieta-card" style="--c:#2563a8"><strong>DASH</strong><span>Diseñada por el NIH para bajar la presión: mucha fruta y verdura, lácteos desnatados y muy poca sal.</span></div>
+        <div class="dieta-card" style="--c:#b0691c"><strong>Flexitariana</strong><span>Vegetal por defecto, animal por elección: sostenible, flexible y de las mejores para perder peso.</span></div>
+        <div class="dieta-card" style="--c:#7b4fa6"><strong>MIND</strong><span>Mediterránea + DASH enfocadas al cerebro: hoja verde a diario, frutos rojos, nueces y pescado.</span></div>
+      </div>
+
+      <p class="fuentes">Fuentes: U.S. News &amp; World Report Best Diets · American Heart Association · OMS · estudio PREDIMED · ensayos DASH (NIH) · cohortes MIND (Rush University). Consulta la guía completa en <code>ALIMENTOS.md</code>. Esta app es orientativa y no sustituye el consejo médico o de un dietista-nutricionista.</p>
+    </section>
+  </main>
+
+  <footer class="pie">Hecho con 🫒 — Mediterránea · DASH · Flexitariana · MIND</footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
