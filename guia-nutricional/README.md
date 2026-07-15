@@ -5,12 +5,13 @@ App web para planificar tus comidas semanales según tus características person
 ## Qué hace
 
 - **👤 Perfil personal** — edad, objetivo (salud, peso, corazón, cerebro), condiciones a vigilar (hipertensión, diabetes, colesterol, digestión) y restricciones (vegetariano, pescetariano, sin gluten, sin lácteos, sin frutos secos, sin pescado). La app te recomienda la dieta base más adecuada y prioriza recetas que encajan con tu perfil.
-- **📅 Plan semanal** — genera 7 días completos (desayuno, comida, cena y snack) a partir de un recetario de **100 recetas** etiquetadas por dieta, beneficios y alérgenos, respetando el consenso científico: legumbre ≥3×/semana, pescado 2-3×, carne roja ≤1× (0 con riesgo cardiovascular), hoja verde y frutos rojos según criterios MIND. Cada plato incluye ingredientes con cantidades, técnica de preparación y un consejo de chef. El dado 🎲 re-sortea cualquier día.
+- **📅 Plan semanal** — genera 7 días completos (desayuno, comida, cena y snack) a partir de un recetario de **103 recetas** etiquetadas por dieta, beneficios y alérgenos, respetando el consenso científico: legumbre ≥3×/semana, pescado 2-3×, carne roja ≤1× (0 con riesgo cardiovascular), hoja verde y frutos rojos según criterios MIND. Cada plato incluye ingredientes con cantidades, técnica de preparación y un consejo de chef. El dado 🎲 re-sortea cualquier día.
 - **🛒 Lista de compra** — se genera sola a partir de tu plan, agrupada por esferas de alimentos, con casillas para marcar lo que ya tienes y botón para copiarla.
 - **🔍 Buscador de alimentos** — escribe lo que tienes en casa (uno o varios alimentos, separados por comas) y obtén todas las recetas que los usan, con su dieta, la lista completa de ingredientes (los tuyos resaltados) y la forma de cocción. Tolera mayúsculas, acentos y plurales, y ordena los resultados por cuántos de tus alimentos aprovecha cada receta.
 - **✨ Combinaciones ganadoras** — botón aleatorio con 15 sinergias respaldadas por la ciencia (lentejas + vitamina C, cúrcuma + pimienta, tomate sofrito + AOVE…), cada una con su explicación.
 - **🍳 Equipamiento mínimo** — los 12 utensilios imprescindibles (más 4 opcionales) con los que se cocina todo el plan, con recomendaciones de uso y cuidado.
-- **📖 Guía** — las 9 reglas de oro semanales, el plato modelo y el resumen de las 4 dietas.
+- **🩺 Colesterol** — la pauta clínica de 1800 kcal para colesterol alto (hoja dietética del Institut Català de la Salut): recomendaciones, plantilla de menú diario con raciones en gramos y alternativas, equivalencias de carne/fruta y tabla de medidas caseras. Se conecta con el perfil: al marcar «Colesterol alto», el generador prioriza avena, legumbre, frutos secos y pescado y elimina la carne roja.
+- **📖 Guía** — las 9 reglas de oro semanales, el plato modelo y el resumen de las 4 dietas. Tres recetas del recetario provienen del corpus validado por la Fundación Dieta Mediterránea (informe con respaldo OMS/EFSA/AESAN-BEDCA/PREDIMED): pesto trapanés, bulgur con tomates y estofado de bacalao con alcachofas.
 
 Tu perfil, tu plan y lo marcado en la compra se guardan en el navegador (localStorage).
 
