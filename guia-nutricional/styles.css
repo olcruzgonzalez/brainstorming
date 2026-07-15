@@ -192,6 +192,49 @@ h2 { font-size: 1.35rem; margin-bottom: 6px; }
 .item-compra.marcado label { text-decoration: line-through; opacity: 0.45; }
 .item-compra label { cursor: pointer; }
 
+/* ===== Buscador ===== */
+.buscador-caja { display: flex; gap: 8px; max-width: 560px; }
+.buscador-caja input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1.5px solid var(--borde);
+  border-radius: 999px;
+  font-size: 1rem;
+  background: var(--blanco);
+}
+.buscador-caja input:focus { outline: 2px solid var(--verde); border-color: var(--verde); }
+.sugerencias { margin: 12px 0 6px; font-size: 0.85rem; color: var(--tinta-suave); }
+.sugerencia {
+  border: 1px solid var(--borde); background: var(--blanco);
+  border-radius: 999px; padding: 4px 12px; margin: 2px;
+  font-size: 0.83rem; cursor: pointer; color: var(--verde-osc);
+}
+.sugerencia:hover { background: var(--verde); color: #fff; border-color: var(--verde); }
+.resultados-busqueda { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-top: 8px; }
+.resultado-card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px 18px;
+  box-shadow: var(--sombra);
+}
+.resultado-card header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.resultado-card h3 { font-size: 1rem; color: var(--verde-osc); }
+.match-contador {
+  font-size: 0.72rem; white-space: nowrap;
+  background: #fbf1e6; color: #9a5b16;
+  border: 1px solid #eedac0; border-radius: 999px; padding: 2px 9px;
+}
+.resultado-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px 0 10px; }
+.tipo-comida { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--tinta-suave); }
+.resultado-cuerpo { font-size: 0.88rem; }
+.resultado-cuerpo ul { margin: 4px 0 10px 18px; }
+.resultado-cuerpo .etiq { font-weight: 700; color: var(--verde-osc); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.resultado-cuerpo p { margin-bottom: 8px; }
+.resultado-cuerpo .tip { font-style: italic; color: var(--tinta-suave); margin-bottom: 0; }
+.ing-match { color: var(--verde-osc); }
+.ing-match strong { background: #eef5ef; border-radius: 4px; padding: 0 4px; }
+
 /* ===== Combinaciones ===== */
 .combo-zona { text-align: center; margin: 26px 0; }
 .combo-carta {
