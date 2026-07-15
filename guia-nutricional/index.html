@@ -18,6 +18,7 @@
     <button class="tab activa" data-tab="perfil">👤 Mi perfil</button>
     <button class="tab" data-tab="plan">📅 Plan semanal</button>
     <button class="tab" data-tab="compra">🛒 Lista de compra</button>
+    <button class="tab" data-tab="buscador">🔍 Buscador</button>
     <button class="tab" data-tab="combos">✨ Combinaciones</button>
     <button class="tab" data-tab="equipo">🍳 Equipamiento</button>
     <button class="tab" data-tab="guia">📖 Guía</button>
@@ -104,6 +105,19 @@
       </div>
       <p class="ayuda" id="compra-descripcion">Generada automáticamente a partir de tu plan semanal, agrupada por esferas de alimentos. Marca lo que ya tengas en casa.</p>
       <div id="lista-compra" class="lista-compra"></div>
+    </section>
+
+    <!-- ============ BUSCADOR ============ -->
+    <section id="panel-buscador" class="panel">
+      <h2>¿Qué tienes en casa?</h2>
+      <p class="ayuda">Escribe uno o varios alimentos (separados por comas) y descubre todas las recetas del recetario que los usan, con su dieta, ingredientes y forma de cocción. Si un alimento aparece en varias recetas, se muestran todas, ordenadas por cuántos de tus alimentos aprovechan.</p>
+      <div class="buscador-caja">
+        <input type="search" id="input-buscador" placeholder="Ej.: salmón, espinacas, garbanzos…" autocomplete="off" />
+        <button id="btn-limpiar-busqueda" class="btn" title="Borrar búsqueda">✕</button>
+      </div>
+      <div class="sugerencias" id="sugerencias-busqueda"></div>
+      <p class="ayuda" id="buscador-resumen"></p>
+      <div id="resultados-busqueda" class="resultados-busqueda"></div>
     </section>
 
     <!-- ============ COMBINACIONES ============ -->

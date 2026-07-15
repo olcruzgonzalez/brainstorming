@@ -387,6 +387,108 @@ function textoLista() {
     .join("\n\n");
 }
 
+/* ---------------- Buscador de alimentos ----------------
+   Busca los alimentos del usuario en los ingredientes de las 100
+   recetas de la base de conocimientos (data.js). Tolera mayúsculas,
+   acentos y plurales sencillos; admite varios términos separados
+   por comas y ordena por número de coincidencias.
+----------------------------------------------------------*/
+const NOMBRE_TIPO = { des: "Desayuno", com: "Comida", cen: "Cena", snk: "Snack" };
+
+const normalizar = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+
+/* Variantes de un término: tal cual y sin plural (-es / -s) */
+function variantes(termino) {
+  const v = new Set([termino]);
+  if (termino.endsWith("es") && termino.length > 4) v.add(termino.slice(0, -2));
+  if (termino.endsWith("s") && termino.length > 3) v.add(termino.slice(0, -1));
+  return [...v];
+}
+
+function coincideIngrediente(nombreIng, termino) {
+  const ing = normalizar(nombreIng);
+  return variantes(termino).some((v) => ing.includes(v));
+}
+
+function buscarRecetas(consulta) {
+  const terminos = consulta.split(",").map(normalizar).filter((t) => t.length >= 3);
+  if (!terminos.length) return { terminos: [], resultados: [] };
+
+  const resultados = [];
+  RECETAS.forEach((receta) => {
+    const encontrados = new Map(); // término → ingredientes que lo contienen
+    terminos.forEach((t) => {
+      const ings = receta.ing.filter(([n]) => coincideIngrediente(n, t)).map(([n]) => n);
+      if (ings.length) encontrados.set(t, ings);
+    });
+    if (encontrados.size) resultados.push({ receta, encontrados });
+  });
+
+  resultados.sort((a, b) => b.encontrados.size - a.encontrados.size ||
+    a.receta.n.localeCompare(b.receta.n, "es"));
+  return { terminos, resultados };
+}
+
+function htmlResultado({ receta, encontrados }, totalTerminos) {
+  const matchIngs = new Set([...encontrados.values()].flat());
+  const ings = receta.ing
+    .map(([n, , q]) => matchIngs.has(n)
+      ? `<li class="ing-match">✔ <strong>${n}</strong> — ${q}</li>`
+      : `<li>${n} — ${q}</li>`)
+    .join("");
+  const tipos = receta.t.map((t) => NOMBRE_TIPO[t]).join(" · ");
+  const beneficios = receta.b.map((b) => BENEFICIOS[b]).join(" · ");
+  const contador = totalTerminos > 1
+    ? `<span class="match-contador">${encontrados.size} de ${totalTerminos} alimentos</span>` : "";
+  return `<article class="resultado-card">
+    <header>
+      <h3>${receta.n}</h3>
+      ${contador}
+    </header>
+    <div class="resultado-meta">
+      <span class="tipo-comida">${tipos}</span>
+      <span class="badges">${receta.d.map(badge).join("")}</span>
+    </div>
+    <div class="resultado-cuerpo">
+      <span class="etiq">Ingredientes (por persona)</span>
+      <ul>${ings}</ul>
+      <span class="etiq">Forma de cocción</span>
+      <p>${receta.coccion}</p>
+      ${beneficios ? `<span class="etiq">Bueno para</span><p>${beneficios}</p>` : ""}
+      <p class="tip">💡 ${receta.tip}</p>
+    </div>
+  </article>`;
+}
+
+function pintarBusqueda() {
+  const consulta = $("#input-buscador").value;
+  const resumen = $("#buscador-resumen");
+  const cont = $("#resultados-busqueda");
+  const { terminos, resultados } = buscarRecetas(consulta);
+
+  if (!terminos.length) {
+    resumen.textContent = consulta.trim()
+      ? "Escribe al menos 3 letras por alimento." : "";
+    cont.innerHTML = "";
+    return;
+  }
+  if (!resultados.length) {
+    resumen.textContent = `Ninguna de las ${RECETAS.length} recetas usa «${consulta.trim()}». Prueba con el nombre básico del alimento (ej. «tomate» en vez de «tomates pera»).`;
+    cont.innerHTML = "";
+    return;
+  }
+  const plural = resultados.length === 1 ? "receta usa" : "recetas usan";
+  resumen.textContent = `${resultados.length} ${plural} tus alimentos (de ${RECETAS.length} recetas en la base de conocimientos).`;
+  cont.innerHTML = resultados.map((r) => htmlResultado(r, terminos.length)).join("");
+}
+
+function pintarSugerencias() {
+  const populares = ["salmón", "garbanzos", "espinacas", "tomate", "aguacate", "lentejas", "huevo", "brócoli", "avena", "yogur"];
+  $("#sugerencias-busqueda").innerHTML = "Prueba: " + populares
+    .map((p) => `<button class="sugerencia" data-termino="${p}">${p}</button>`)
+    .join("");
+}
+
 /* ---------------- Render: combinaciones ---------------- */
 let ultimoCombo = -1;
 function mostrarCombo() {
@@ -486,6 +588,23 @@ function initEventos() {
   });
 
   $("#btn-combo").addEventListener("click", mostrarCombo);
+
+  $("#input-buscador").addEventListener("input", pintarBusqueda);
+
+  $("#btn-limpiar-busqueda").addEventListener("click", () => {
+    $("#input-buscador").value = "";
+    pintarBusqueda();
+    $("#input-buscador").focus();
+  });
+
+  $("#sugerencias-busqueda").addEventListener("click", (e) => {
+    const btn = e.target.closest(".sugerencia");
+    if (!btn) return;
+    const input = $("#input-buscador");
+    const actual = input.value.trim();
+    input.value = actual ? actual.replace(/,\s*$/, "") + ", " + btn.dataset.termino : btn.dataset.termino;
+    pintarBusqueda();
+  });
 }
 
 /* ---------------- Arranque ---------------- */
@@ -496,6 +615,7 @@ function init() {
   pintarEquipo();
   pintarReglas();
   pintarCombosLista();
+  pintarSugerencias();
   if (estado.perfil) {
     volcarPerfil(estado.perfil);
     pintarResumenDieta();
