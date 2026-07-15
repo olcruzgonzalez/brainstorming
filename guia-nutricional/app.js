@@ -235,10 +235,13 @@ function pintarResumenDieta() {
     flex: "es flexible, saciante y de las mejor valoradas para el control de peso y la alimentación vegetal",
     med: "es la dieta con más evidencia científica acumulada para la salud general y la longevidad",
   };
+  const notaColesterol = estado.perfil.cond.includes("colesterol")
+    ? ` Como has marcado colesterol alto, consulta también la pestaña <strong>🩺 Colesterol</strong>: incluye la pauta clínica de 1800 kcal con raciones y equivalencias.`
+    : "";
   caja.innerHTML = `✅ <strong>Perfil guardado.</strong> Tu plan se apoya sobre todo en la dieta
     <strong>${DIETAS[d].nombre}</strong>, porque ${motivos[d]}.
     Las recetas que encajan con tus objetivos tienen prioridad en el generador.
-    Ve a la pestaña <strong>📅 Plan semanal</strong> para ver tu semana.`;
+    Ve a la pestaña <strong>📅 Plan semanal</strong> para ver tu semana.${notaColesterol}`;
   caja.classList.remove("oculto");
 }
 
@@ -507,6 +510,43 @@ function pintarCombosLista() {
     .join("");
 }
 
+/* ---------------- Render: plan clínico de colesterol ---------------- */
+function pintarColesterol() {
+  const d = DIETA_COLESTEROL;
+  $("#colesterol-contenido").innerHTML = `
+    <h2>${d.titulo}</h2>
+    <p class="ayuda">${d.intro}</p>
+    <p class="fuente-clinica">Fuente: ${d.fuente}. Plan orientativo de 1800 kcal — no sustituye la pauta individualizada de tu médico o dietista-nutricionista.</p>
+
+    <h3 class="subtitulo">Recomendaciones</h3>
+    <ul class="lista-recos">${d.recomendaciones.map((r) => `<li>${r}</li>`).join("")}</ul>
+
+    <h3 class="subtitulo">Menú diario (plantilla con alternativas)</h3>
+    <div class="menu-clinico">
+      ${d.menu.map((m) => `<div class="menu-card">
+        <h4>${m.comida}</h4>
+        <ul>${m.items.map((i) => `<li>${i}</li>`).join("")}</ul>
+      </div>`).join("")}
+    </div>
+
+    <h3 class="subtitulo">Equivalencias</h3>
+    ${d.equivalencias.map((e) => `<div class="equivalencia">
+      <strong>${e.clave}:</strong>
+      <ul>${e.valores.map((v) => `<li>${v}</li>`).join("")}</ul>
+    </div>`).join("")}
+
+    <h3 class="subtitulo">Notas de la pauta</h3>
+    <ul class="lista-recos">${d.notas.map((n) => `<li>${n}</li>`).join("")}</ul>
+
+    <h3 class="subtitulo">Medidas caseras de referencia</h3>
+    <div class="tabla-scroll"><table class="tabla-medidas">
+      <thead><tr><th>Medida</th><th>Cantidad</th></tr></thead>
+      <tbody>${d.medidas.map(([m, c]) => `<tr><td>${m}</td><td>${c}</td></tr>`).join("")}</tbody>
+    </table></div>
+
+    <div class="nota-app">💚 ${d.notaApp}</div>`;
+}
+
 /* ---------------- Render: equipamiento y guía ---------------- */
 function pintarEquipo() {
   const html = (e) => `<div class="equipo-card">
@@ -616,6 +656,7 @@ function init() {
   pintarReglas();
   pintarCombosLista();
   pintarSugerencias();
+  pintarColesterol();
   if (estado.perfil) {
     volcarPerfil(estado.perfil);
     pintarResumenDieta();

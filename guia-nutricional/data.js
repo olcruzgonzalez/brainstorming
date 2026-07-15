@@ -510,6 +510,23 @@ const RECETAS = [
     coccion: "Sellar el solomillo y terminar al horno 12 min a 190 °C; compota rápida de manzana y cebolla; col salteada al dente con mostaza.",
     tip: "El solomillo de cerdo es tan magro como la pechuga de pollo: la excepción de la carne." },
 
+  /* ===== MAINS — recetario mediterráneo validado (Fundación Dieta Mediterránea) ===== */
+  { id: "m63", n: "Pasta con pesto trapanés (tomate y almendras)", t: ["com"], d: ["med"], p: ["veg"], al: ["gluten", "frutos_secos"],
+    b: ["corazon", "colesterol"],
+    ing: [["pasta tipo busiate o fusilli (integral)", "grano", "70 g en seco"], ["tomate maduro", "verde", "2 ud"], ["almendras crudas", "grasa", "25 g"], ["albahaca fresca", "sabor", "1 manojo"], ["ajo", "sabor", "1 diente"], ["aceite de oliva virgen extra", "grasa", "1½ cda"], ["pecorino o parmesano", "despensa", "1 cda"]],
+    coccion: "Majar (o batir en pulsos) almendras, ajo, albahaca y tomate pelado con el AOVE hasta pesto granuloso; hervir la pasta al dente y mezclar fuera del fuego con el pesto en crudo y el queso.",
+    tip: "El pesto siciliano de los marineros de Trapani: se sirve crudo, sin cocinar la salsa — máximo licopeno y vitamina C." },
+  { id: "m64", n: "Bulgur con tomates y hierbabuena", t: ["com", "cen"], d: ["med", "flex"], p: ["veg"], al: ["gluten"],
+    b: ["diabetes", "intestino", "colesterol"],
+    ing: [["bulgur", "grano", "60 g en seco"], ["tomate maduro", "verde", "2 ud"], ["cebolla", "sabor", "½ ud"], ["hierbabuena o perejil", "sabor", "1 puñado"], ["limón", "sabor", "½ ud"], ["aceite de oliva virgen extra", "grasa", "1 cda"]],
+    coccion: "Sofreír la cebolla, añadir el tomate rallado 5 min, incorporar el bulgur y el doble de agua caliente; tapar y cocer 12-15 min a fuego suave. Terminar con hierbabuena y limón.",
+    tip: "El bulgur ya viene precocido al vapor: es el grano integral más rápido de la despensa mediterránea." },
+  { id: "m65", n: "Estofado de bacalao con alcachofas, pasas y piñones", t: ["com"], d: ["med"], p: ["pescado"], al: ["pescado", "frutos_secos"],
+    b: ["corazon", "colesterol"],
+    ing: [["bacalao en lomos", "prot", "150 g"], ["alcachofas", "verde", "2 ud"], ["tomate triturado", "despensa", "100 g"], ["cebolla", "sabor", "½ ud"], ["ajo", "sabor", "1 diente"], ["pasas", "fruta", "1 cda"], ["piñones", "grasa", "1 cda"], ["perejil", "sabor", "1 puñado"], ["aceite de oliva virgen extra", "grasa", "1 cda"]],
+    coccion: "Sofrito lento de cebolla, ajo y tomate; añadir las alcachofas en cuartos y un vaso de agua, 15 min; posar el bacalao con pasas y piñones encima y estofar tapado 8-10 min más.",
+    tip: "Clásico catalán de Cuaresma: el dulzor de las pasas equilibra el punto salino del bacalao sin añadir sal." },
+
   /* ===== SNACKS (ampliación) ===== */
   { id: "s09", n: "Palomitas caseras con AOVE y pimentón", t: ["snk"], d: ["flex", "dash"], p: ["veg"], al: [],
     b: ["peso", "intestino"],
@@ -629,6 +646,60 @@ const EQUIPO = [
     uso: "Limón y lima diarios para aliños, marinadas y agua con limón: en cocina saludable el ácido trabaja tanto como la sal.",
     tips: ["Rueda el limón presionando antes de cortarlo: suelta el doble de zumo."] },
 ];
+
+/* ---------------- PLAN CLÍNICO: DIETA COLESTEROL 1800 kcal ----------------
+   Fuente: hoja dietética del Institut Català de la Salut (ICS).
+   Pesos netos, en crudo y sin desperdicios. Plan orientativo: no sustituye
+   la pauta individualizada del equipo sanitario. ---------------- */
+const DIETA_COLESTEROL = {
+  titulo: "Dieta para el colesterol — 1800 kcal",
+  fuente: "Institut Català de la Salut (hoja dietética clínica)",
+  intro: "El exceso de colesterol en sangre favorece los depósitos de grasa en las arterias y es, junto al tabaco y la hipertensión, un factor decisivo del infarto de miocardio. Una alimentación adecuada es el primer paso de prevención y tratamiento.",
+  recomendaciones: [
+    "Menos grasas animales: carnes grasas (cerdo, cordero…) no más de 3 veces por semana.",
+    "No más de 2 huevos a la semana (según esta pauta clínica).",
+    "Leche y lácteos siempre descremados.",
+    "Aceite de oliva para cocinar; en crudo vale cualquier aceite vegetal (oliva, girasol, soja, maíz). Nunca mantequilla ni manteca para cocinar.",
+    "Evitar pastelería (ensaimadas, croissants, churros, pan de molde, helados cremosos) y precocinados/aperitivos (croquetas, canelones, cortezas).",
+    "Pescado azul (sardina, boquerón, salmón, atún…) al menos 1 vez por semana; marisco con moderación.",
+    "Más fibra: ensaladas y verdura, fruta entera, legumbres y productos integrales.",
+    "Sal, especias, café e infusiones con moderación, salvo indicación contraria.",
+    "El consumo de alcohol debe consultarse con el equipo sanitario.",
+    "Aceite total del día: 3½ cucharadas soperas (35 cc) de aceite de oliva.",
+  ],
+  menu: [
+    { comida: "Desayuno", items: ["200 cc de leche descremada — o 2 yogures naturales descremados", "40 g de pan — o 3 biscotes", "50 g de queso fresco — o 30 g de atún o sardinas"] },
+    { comida: "Media mañana", items: ["50 g de pan — o 4 biscotes", "20 g de jamón york o del país (mejor: pescado azul u hortalizas)", "1 yogur natural descremado"] },
+    { comida: "Comida", items: ["250 g de cualquier verdura", "200 g de patatas — o 60 g de arroz/pasta — o 80 g de pan — o 80 g de legumbres — o 240 g de guisantes/habas — o 360 g de maíz", "100 g de carne magra *", "20 g de pan — o 50 g de patatas — o 15 g de arroz/pasta — o 20 g de legumbres — o 1 biscote", "150 g de fruta **"] },
+    { comida: "Merienda", items: ["50 g de pan — o 4 biscotes", "20 g de jamón york o del país (mejor: pescado azul u hortalizas)", "1 yogur natural descremado"] },
+    { comida: "Cena", items: ["200 g de cualquier verdura", "150 g de patatas — o 45 g de arroz/pasta — o 60 g de pan — o 60 g de legumbres — o 180 g de guisantes/habas — o 270 g de maíz", "150 g de cualquier pescado *", "20 g de pan — o 50 g de patatas — o 15 g de arroz/pasta — o 20 g de legumbres — o 1 biscote", "150 g de fruta **"] },
+  ],
+  equivalencias: [
+    { clave: "* 100 g de carne magra (ternera/buey) equivalen a", valores: ["¼ de pollo sin piel", "150 g de pescado blanco o azul", "80 g de jamón de york o del país", "80 g de legumbres"] },
+    { clave: "** 150 g de fruta equivalen a", valores: ["150 g de manzana, pera, melocotón, albaricoque o ciruela", "200 g de naranja, mandarina, piña o fresas", "100 g de plátano, uva, higos o chirimoya", "350-400 g de melón o sandía"] },
+  ],
+  notas: [
+    "En los bocadillos de desayuno, media mañana y merienda conviene sustituir el jamón/queso por pescado azul (atún, sardinas) u hortalizas (tomate, pimiento, berenjena) para variar sin subir el colesterol.",
+    "La verdura puede sustituirse por una buena ensalada variada, una escalivada o un gazpacho ligero.",
+    "Todas las cantidades son pesos netos, en crudo y sin desperdicios.",
+    "Arroz y pasta triplican su peso al cocerse (30 g crudos ≈ 90-100 g cocidos); las legumbres lo duplican (40 g crudas ≈ 80-100 g cocidas).",
+  ],
+  medidas: [
+    ["1 rebanada de pan de barra de ½ (2 cm)", "30-40 g"],
+    ["1 rebanada de pan de barra de ¼ (2 cm)", "20-25 g"],
+    ["1 vaso de agua o 1 taza de leche", "200 cc"],
+    ["1 yogur comercial", "125 g"],
+    ["1 cucharada sopera de aceite", "10 cc"],
+    ["1 cucharada pequeña de aceite", "5 cc"],
+    ["1 cucharada sopera de arroz o harina", "20-25 g"],
+    ["1 puñado (mano cerrada) de arroz o pasta pequeña", "15 g"],
+    ["1 taza de café de arroz o pasta pequeña", "20-25 g"],
+    ["1 plato hondo de verdura (ración habitual)", "80-100 g"],
+    ["1 pieza de fruta habitual", "200-300 g"],
+    ["1 patata algo mayor que un huevo", "100 g"],
+  ],
+  notaApp: "Cómo encaja con esta app: marca «Colesterol alto» en tu perfil y el generador priorizará recetas con avena, legumbre, frutos secos y pescado azul, y eliminará la carne roja de tu semana — el mismo criterio de esta pauta clínica. Las recomendaciones actuales (AHA/OMS) son algo más flexibles con el huevo que esta hoja; ante dudas, manda lo que te diga tu equipo sanitario.",
+};
 
 /* ---------------- REGLAS SEMANALES (consenso de las 4 dietas) ---------------- */
 const REGLAS = [

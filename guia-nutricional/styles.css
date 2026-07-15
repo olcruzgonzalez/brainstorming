@@ -273,6 +273,30 @@ h2 { font-size: 1.35rem; margin-bottom: 6px; }
 .equipo-card ul { margin-left: 18px; font-size: 0.85rem; color: var(--tinta-suave); }
 .equipo-card li { margin-bottom: 3px; }
 
+/* ===== Plan colesterol ===== */
+.fuente-clinica { font-size: 0.82rem; color: var(--tinta-suave); font-style: italic; margin-bottom: 6px; }
+.lista-recos { margin-left: 20px; font-size: 0.92rem; }
+.lista-recos li { margin-bottom: 5px; }
+.menu-clinico { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.menu-card {
+  background: var(--blanco); border: 1px solid var(--borde);
+  border-radius: var(--radio); padding: 14px 16px; box-shadow: var(--sombra);
+}
+.menu-card h4 { color: var(--verde-osc); margin-bottom: 8px; font-size: 0.95rem; }
+.menu-card ul { margin-left: 18px; font-size: 0.87rem; }
+.menu-card li { margin-bottom: 4px; }
+.equivalencia { background: #eef5ef; border: 1px solid #cfe3d4; border-radius: var(--radio); padding: 12px 16px; margin-bottom: 10px; font-size: 0.9rem; }
+.equivalencia ul { margin: 6px 0 0 20px; }
+.tabla-scroll { overflow-x: auto; }
+.tabla-medidas { border-collapse: collapse; width: 100%; max-width: 640px; font-size: 0.88rem; background: var(--blanco); }
+.tabla-medidas th, .tabla-medidas td { border: 1px solid var(--borde); padding: 7px 12px; text-align: left; }
+.tabla-medidas th { background: var(--verde-osc); color: #fff; }
+.tabla-medidas tr:nth-child(even) td { background: var(--crema); }
+.nota-app {
+  margin-top: 22px; background: #eef5ef; border-left: 5px solid var(--verde);
+  border-radius: 8px; padding: 14px 16px; font-size: 0.9rem;
+}
+
 /* ===== Guía ===== */
 .reglas-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
 .regla {
